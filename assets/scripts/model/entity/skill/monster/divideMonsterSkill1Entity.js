@@ -1,4 +1,4 @@
-//会爆炸
+//除
 var skillEntity = require("skillEntity");
 cc.Class({
     extends:skillEntity,
@@ -24,6 +24,7 @@ cc.Class({
     },
 
     calculateRemaining:function(other){
+        this._super(other);
         other.remainingTimeCount = Math.floor(other.remainingTimeCount/this.divideNum);
     },
 

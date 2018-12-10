@@ -1,3 +1,4 @@
+//加减
 var monsterEntity = require("monsterEntity");
 cc.Class({
     extends:monsterEntity,

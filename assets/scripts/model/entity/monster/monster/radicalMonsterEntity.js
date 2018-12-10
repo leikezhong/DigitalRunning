@@ -1,3 +1,4 @@
+//开根号
 var monsterEntity = require("monsterEntity");
 cc.Class({
     extends:monsterEntity,
@@ -5,7 +6,7 @@ cc.Class({
     initParams:function(){
         this._super();
         this.entityType = gameConst.ENTITY_TYPE.MONSTER103;
-        this.prefabName = "monster/impactMonster_prefab";
+        this.prefabName = "monster/radicalMonster_prefab";
         this.moveXSpeed = battle.nowDungeonManager.dungeonMoveXSpeed;
         this.moveYSpeed = 2;
     },
@@ -22,6 +23,7 @@ cc.Class({
             //创建特效，晕眩角色
             if(!battle.battleManager.mainEntity.startJumpStatus){
                 battle.battleManager.mainEntity.addBuff(gameConst.BUFF_TYPE.GIDDY_BUFF, 120);
+                battle.battleManager.mainEntity.remainingTimeCount = Math.sqrt(battle.battleManager.mainEntity.remainingTimeCount);
             }
         }
         battle.poolManager.putInPool(this);
