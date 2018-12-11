@@ -8,22 +8,25 @@ cc.Class({
         this._super();
         this.entityType = gameConst.ENTITY_TYPE.MONSTER105;
         this.prefabName = "monster/divideMonster_prefab";
-        this.moveXSpeed = battle.nowDungeonManager.dungeonMoveXSpeed;
+        this.moveXSpeed = battle.dungeonManager.dungeonMoveXSpeed;
         this.divideNum = Math.floor(battle.battleManager.getRandom() * 3 + 2);
     },
 
     resetStatus:function(xPos, yPos, type){
         this.entityYDirect = type;
-        this.divideNum = Math.floor(battle.battleManager.getRandom() * 3 + 2);
         this.moveType = -1;
-        this.moveXSpeed = battle.nowDungeonManager.dungeonMoveXSpeed;
+        this.moveXSpeed = battle.dungeonManager.dungeonMoveXSpeed;
         this.hasShoot = false;
         this.setEntityPos(xPos, type==1?(yPos+this.useCollisionHei*.5):(-yPos-this.useCollisionHei*.5));
+
+        this.divideNum = Math.floor(battle.battleManager.getRandom() * 3 + 2);
+        this.digitalLabel.string = "/" + this.divideNum;
     },
 
     calculateRemaining:function(other){
         this._super(other);
         other.remainingTimeCount = Math.floor(other.remainingTimeCount/this.divideNum);
+        console.log("divide calculate:" + battle.battleManager.mainEntity.remainingTimeCount);
     },
 
     startShoot:function(){

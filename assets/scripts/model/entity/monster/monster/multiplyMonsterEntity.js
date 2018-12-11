@@ -7,20 +7,23 @@ cc.Class({
         this._super();
         this.entityType = gameConst.ENTITY_TYPE.MONSTER106;
         this.prefabName = "monster/multiplyMonster_prefab";
-        this.moveXSpeed = battle.nowDungeonManager.dungeonMoveXSpeed * 4;
+        this.moveXSpeed = battle.dungeonManager.dungeonMoveXSpeed * 4;
     },
 
     resetStatus:function(xPos, yPos, type){
         this.entityYDirect = type;
-        this.multiplyNum = Math.floor(battle.battleManager.getRandom() * 2 + 2);
         this.moveType = -1;
-        this.moveXSpeed = battle.nowDungeonManager.dungeonMoveXSpeed;
+        this.moveXSpeed = battle.dungeonManager.dungeonMoveXSpeed;
         this.setEntityPos(xPos, type==1?(yPos+this.useCollisionHei*.5):(-yPos-this.useCollisionHei*.5));
+
+        this.multiplyNum = Math.floor(battle.battleManager.getRandom() * 2 + 2);
+        this.digitalLabel.string = "*" + this.multiplyNum;
     },
 
     calculateRemaining:function(other){
         this._super(other);
         other.remainingTimeCount *= this.multiplyNum;
+        console.log("multiply calculate:" + battle.battleManager.mainEntity.remainingTimeCount);
     },
     
     step:function(){

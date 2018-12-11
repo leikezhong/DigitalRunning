@@ -1,6 +1,10 @@
 cc.Class({
     extends:cc.Class,
 
+    ctor:function(){
+        this.init();
+    },
+
     init:function(){
         this.entityType = -1;
         this.entityId = battle.entityManager.getEntityId();

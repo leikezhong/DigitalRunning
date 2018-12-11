@@ -66,7 +66,7 @@ cc.Class({
     },
 
     calculateRemaining:function(other){
-
+        this.setDead();
     },
 
     onCollisionStay:function(other){

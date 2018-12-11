@@ -147,6 +147,9 @@ cc.Class({
                 this.remainingTimeCount = 0;
             }
             this.remainingTimeTF.string = Math.ceil(this.remainingTimeCount / 100);
+        }else{
+            this.remainingTimeTF.string = "0";
+            battle.battleManager.gameOver();
         }
     },
 

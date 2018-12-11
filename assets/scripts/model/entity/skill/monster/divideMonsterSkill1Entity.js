@@ -11,7 +11,7 @@ cc.Class({
     },
 
     resetStatus:function(xPos, yPos){
-        this.moveType = 1;
+        this.moveType = -1;
         this.moveXSpeed = 15;
         this.divideNum = Math.floor(battle.battleManager.getRandom() * 3 + 2);
         this.setEntityPos(xPos, yPos);

@@ -1,6 +1,6 @@
 //取余
 var monsterEntity = require("monsterEntity");
-var bombMonsterSkill1Entity = require("residualMonsterSkill1Entity");
+var residualMonsterSkill1Entity = require("residualMonsterSkill1Entity");
 cc.Class({
     extends:monsterEntity,
 
@@ -8,21 +8,23 @@ cc.Class({
         this._super();
         this.entityType = gameConst.ENTITY_TYPE.MONSTER104;
         this.prefabName = "monster/residualMonster_prefab";
-        this.moveXSpeed = battle.nowDungeonManager.dungeonMoveXSpeed;
-        this.residualNum = Math.floor(battle.battleManager.mainEntity.remainingTimeCount / 2 + battle.battleManager.getRandom() * (battle.battleManager.mainEntity.remainingTimeCount / 2));
+        this.moveXSpeed = battle.dungeonManager.dungeonMoveXSpeed;
     },
 
     resetStatus:function(xPos, yPos, type){
         this.entityYDirect = type;
         this.moveType = -1;
-        this.moveXSpeed = battle.nowDungeonManager.dungeonMoveXSpeed;
-        this.residualNum = Math.floor(battle.battleManager.mainEntity.remainingTimeCount / 2 + battle.battleManager.getRandom() * (battle.battleManager.mainEntity.remainingTimeCount / 2));
+        this.moveXSpeed = battle.dungeonManager.dungeonMoveXSpeed;
         this.setEntityPos(xPos, type==1?(yPos+this.useCollisionHei*.5):(-yPos-this.useCollisionHei*.5));
+        
+        this.residualNum = Math.floor((battle.battleManager.mainEntity.remainingTimeCount / 2 + battle.battleManager.getRandom() * (battle.battleManager.mainEntity.remainingTimeCount / 3)) / 100);
+        this.digitalLabel.string = "%" + this.residualNum;
     },
 
     calculateRemaining:function(other){
         this._super(other);
-        other.remainingTimeCount = Math.floor(other.remainingTimeCount % this.divideNum);
+        other.remainingTimeCount = Math.floor(((other.remainingTimeCount / 100) % this.residualNum) * 100);
+        console.log("residual calculate:" + battle.battleManager.mainEntity.remainingTimeCount);
     },
 
 

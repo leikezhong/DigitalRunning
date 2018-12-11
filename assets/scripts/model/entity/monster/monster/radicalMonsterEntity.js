@@ -7,15 +7,16 @@ cc.Class({
         this._super();
         this.entityType = gameConst.ENTITY_TYPE.MONSTER103;
         this.prefabName = "monster/radicalMonster_prefab";
-        this.moveXSpeed = battle.nowDungeonManager.dungeonMoveXSpeed;
+        this.moveXSpeed = battle.dungeonManager.dungeonMoveXSpeed;
         this.moveYSpeed = 2;
     },
 
     resetStatus:function(xPos, yPos, type){
         this.entityYDirect = type;
         this.moveType = -1;
-        this.moveXSpeed = battle.nowDungeonManager.dungeonMoveXSpeed;
+        this.moveXSpeed = battle.dungeonManager.dungeonMoveXSpeed;
         this.setEntityPos(xPos, type==1?(yPos+this.useCollisionHei*.5):(-yPos-this.useCollisionHei*.5));
+        this.digitalLabel.string = "√￣";
     },
 
     setMainEntityGiddy:function(){
@@ -23,7 +24,8 @@ cc.Class({
             //创建特效，晕眩角色
             if(!battle.battleManager.mainEntity.startJumpStatus){
                 battle.battleManager.mainEntity.addBuff(gameConst.BUFF_TYPE.GIDDY_BUFF, 120);
-                battle.battleManager.mainEntity.remainingTimeCount = Math.sqrt(battle.battleManager.mainEntity.remainingTimeCount);
+                battle.battleManager.mainEntity.remainingTimeCount = Math.sqrt(battle.battleManager.mainEntity.remainingTimeCount / 100) * 100;
+                console.log("radical calculate:" + battle.battleManager.mainEntity.remainingTimeCount);
             }
         }
         battle.poolManager.putInPool(this);

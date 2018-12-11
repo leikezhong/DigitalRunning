@@ -7,7 +7,7 @@ cc.Class({
         this._super();
         this.entityType = gameConst.ENTITY_TYPE.MONSTER102;
         this.prefabName = "monster/randomMultiplyMonster_prefab";
-        this.moveXSpeed = battle.nowDungeonManager.dungeonMoveXSpeed;
+        this.moveXSpeed = battle.dungeonManager.dungeonMoveXSpeed;
         this.startJumpStatus = false;
         this.jumpCut = 0.7;
         this.jumpMaxVelY = 20;
@@ -19,8 +19,10 @@ cc.Class({
         this.entityYDirect = type;
         this.intervalYDistance = 0;
         this.moveType = -1;
-        this.moveXSpeed = battle.nowDungeonManager.dungeonMoveXSpeed;
+        this.moveXSpeed = battle.dungeonManager.dungeonMoveXSpeed;
         this.setEntityPos(xPos, type==1?this.useCollisionHei*.5:-this.useCollisionHei*.5);
+
+        this.digitalLabel.string = "* random";
     },
 
     startJump:function(){
@@ -56,7 +58,8 @@ cc.Class({
 
     calculateRemaining:function(other){
         this._super(other);
-        other.remainingTimeCount *= Math.floor(this.intervalYDistance / 100) * 100;
+        other.remainingTimeCount *= Math.floor(this.intervalYDistance / 100) + 1;
+        console.log("randomMultiply calculate:" + battle.battleManager.mainEntity.remainingTimeCount);
     },
 
     step:function(){
@@ -73,6 +76,7 @@ cc.Class({
     },
 
     jumpStep:function(){
+        if(this.baseFrame < 3)  return;
         if(battle.battleManager.mainEntity
              && battle.battleManager.mainEntity.entityYDirect == this.entityYDirect 
              && battle.battleManager.mainEntity.startJumpStatus 

@@ -20,7 +20,6 @@ cc.Class({
         this.maxScore = 100;
 
         this.mainEntity = new characterEntity();
-        this.mainEntity.init();
         this.mainEntity.setEntityPos(this.winSize.width * .35, this.mainEntity.useRadius);
         battle.visionManager.setVisionEntity(this.mainEntity);
     },
